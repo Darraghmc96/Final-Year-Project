@@ -7,13 +7,51 @@
 <body>
     <h1>Sign up</h1>
 
-    <form th:action="@{/req/signup}" method="post">
-        <input type="text" name="username" placeholder="Username">
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Password">
-        <button type="submit">Sign up</button>
+    <p id="message" class="error"></p>
+
+    <form>
+        <input type="text" id="username" placeholder="Username">
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <input type="password" id="passwordcon" placeholder="Confirm password">
+        <button type="button" id="Submit">Sign up</button>
     </form>
 
     <a th:href="@{/login}">Back to login</a>
+
+    <script>
+        const submitButton = document.getElementById("Submit");
+        submitButton.addEventListener('click', () => {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('passwordcon').value;
+            const email = document.getElementById('email').value;
+            const data = {
+                username,
+                password,
+                email
+            };
+
+            if (password === confirmPassword) {
+                const jsonData = JSON.stringify(data);
+                fetch('/req/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/login?registered';
+                    } else {
+                        document.getElementById('message').textContent = 'Sign up failed. Try a different username or email.';
+                    }
+                });
+            } else {
+                document.getElementById('message').textContent = 'Passwords do not match.';
+            }
+        });
+    </script>
 </body>
 </html>

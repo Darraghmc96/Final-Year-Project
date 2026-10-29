@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="home">
+
+    <header>
+        <strong>Clearly</strong>
+        <nav>
+            <a th:href="@{/home}">Home</a>
+            <a href="#">Daily log</a>
+            <a href="#">History</a>
+            <a href="#">Settings</a>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit">Log out</button>
+            </form>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Hi <span th:text="${username}">there</span></h1>
+
+        <section class="card">
+            <h2>Today's log</h2>
+            <p>You haven't logged today yet.</p>
+            <a href="#">Add today's log</a>
+        </section>
+
+        <section class="card">
+            <h2>Flare risk</h2>
+            <p>Coming soon.</p>
+        </section>
+
+        <section class="card">
+            <h2>Weather</h2>
+            <p>Coming soon.</p>
+        </section>
+    </main>
+
+</body>
+</html>
